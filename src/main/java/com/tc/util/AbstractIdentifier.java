@@ -7,7 +7,7 @@ package com.tc.util;
 import java.io.Serializable;
 
 /**
- * Generic Identifier class, parent class of many ID types. Legal identifiers are expected to be >= 0 and -1 represents
+ * Generic Identifier class, parent class of many ID types. Legal identifiers are expected to be &gt;= 0 and -1 represents
  * a "null" identifier.
  * 
  * @author steve
@@ -18,7 +18,7 @@ public abstract class AbstractIdentifier implements Comparable, Serializable {
   private final long        id;
 
   /**
-   * Create an identifier with a long value, which is expected to be >= 0.
+   * Create an identifier with a long value, which is expected to be &gt;= 0.
    */
   public AbstractIdentifier(long id) {
     this.id = id;

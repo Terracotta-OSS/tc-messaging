@@ -170,9 +170,10 @@ public interface TCObject extends Cacheable {
 
   /**
    * Takes a DNA strand and hydrates the object with it.
-   * 
+   *
+   * @param from
    * @param force true if the DNA should be applied w/o any version checking
-   * @param weakReference
+   * @param peer
    * @throws ClassNotFoundException If class not found
    */
   public void hydrate(DNA from, boolean force, WeakReference peer) throws ClassNotFoundException;
@@ -208,7 +209,7 @@ public interface TCObject extends Cacheable {
    * 
    * @param fieldName Field in this object
    * @param id New reference for this field
-   * @returns Old mapping if present
+   * @return Old mapping if present
    */
   public ObjectID setReference(String fieldName, ObjectID id);
 
@@ -257,7 +258,7 @@ public interface TCObject extends Cacheable {
   /**
    * Invoke logical method
    * 
-   * @param method Method indicator, as defined in {@link com.tc.object.SerializationUtil}
+   * @param method Method indicator
    * @param params The parameter values
    */
   public void logicalInvoke(LogicalOperation method, Object[] params);

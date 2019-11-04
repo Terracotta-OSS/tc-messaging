@@ -25,14 +25,15 @@ public interface TraversedReferences {
   
   /**
    * Add a named reference traversal, usually in a physical applicator
-   * @param fullyQualifiedFieldName Full field name, which can be split into class and field
+   *
+   * @param fullyQualifiedFieldname Full field name, which can be split into class and field
    * @param value Object value in field
    */
   public void addNamedReference(String fullyQualifiedFieldname, Object value);
   
   /**
    * Walk through the references traversed
-   * @return Iterator<TraversedReference>
+   * @return Iterator&lt;TraversedReference&gt;
    */
   public Iterator<TraversedReference> iterator();
 }

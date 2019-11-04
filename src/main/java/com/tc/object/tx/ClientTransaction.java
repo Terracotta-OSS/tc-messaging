@@ -60,7 +60,7 @@ public interface ClientTransaction {
   /**
    * Indicate place in sequence of transactions
    * 
-   * @param sequenceID Identifier
+   * @param tid Identifier
    */
   public void setTransactionID(TransactionID tid);
 
@@ -122,7 +122,7 @@ public interface ClientTransaction {
    * @param source Source of invoke
    * @param method Method identifier
    * @param parameters Parameter values
-   * @param methodName Method name
+   * @param id change identifier
    */
   public void logicalInvoke(TCObject source, LogicalOperation method, Object[] parameters, LogicalChangeID id);
 

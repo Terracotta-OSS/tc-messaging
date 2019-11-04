@@ -44,7 +44,8 @@ public class TCObjectInputStream implements ObjectInput, TCDataInput {
    * This method is the reason I am writing this class. This implementation only can handle Literal Objects and is
    * designed to be used where readObject() is called only for literal objects. Example : Sleepycat Serialization.
    * 
-   * @see LiteralValues, DNAEncoding
+   * @see com.tc.object.LiteralValues
+   * @see com.tc.object.dna.api.DNAEncoding
    */
   @Override
   public Object readObject() throws ClassNotFoundException, IOException {
@@ -189,7 +190,7 @@ public class TCObjectInputStream implements ObjectInput, TCDataInput {
   }
 
   /**
-   * This implemetation of writeUTF differes from the DataOutputStream's implementation in the following ways. 1) It
+   * This implementation of writeUTF differs from the DataOutputStream's implementation in the following ways. 1) It
    * handles null strings. 2) It handles long strings (no 65K limit that UTF Encoding poses) 3) Data should have been
    * written by TCObjectOutputStream.
    */
@@ -202,7 +203,7 @@ public class TCObjectInputStream implements ObjectInput, TCDataInput {
    * This reads a 4 byte length and then the UTF String itself. If the length is negative, then it is a null string.
    * 
    * @throws IOException
-   * @see writeUTF();
+   * @see TCObjectOutputStream#writeUTF(String)
    */
   @Override
   public String readString() throws IOException {

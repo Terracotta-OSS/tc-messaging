@@ -32,8 +32,8 @@ public class GarbageCollectionID extends AbstractIdentifier {
   /**
    * Create an GarbageCollectionID with the specified ID
    * 
-   * @param id The id value, >= 0
-   * @param UUID identifier
+   * @param id The id value, &gt;= 0
+   * @param uuid identifier
    */
   public GarbageCollectionID(long id, String uuid) {
     super(id);

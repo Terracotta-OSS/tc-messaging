@@ -143,8 +143,6 @@ public class DNAWriterImpl implements DNAWriterInternal {
 
   /**
    * NOTE::README This method is called from instrumented code in the L2.
-   * 
-   * @see PhysicalStateClassLoader.createBasicDehydrateMethod()
    */
   @Override
   public void addPhysicalAction(String fieldName, Object value, boolean canBeReferenced) {

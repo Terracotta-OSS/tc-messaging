@@ -27,7 +27,7 @@ public class ClassUtils {
   /**
    * Get the dimension of an array
    * @param arrayClass The array class
-   * @return Dimension, >= 0
+   * @return Dimension, &gt;= 0
    * @throws NullPointerException If arrayClass is null
    * @throws IllegalArgumentException If arrayClass is not an array class
    */

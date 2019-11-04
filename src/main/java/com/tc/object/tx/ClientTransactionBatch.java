@@ -25,7 +25,9 @@ public interface ClientTransactionBatch extends TransactionBatch {
   /**
    * Add the given transaction to this batch.
    * 
-   * @param logicalChangeSequence
+   * @param txn
+   * @param sequenceGenerator
+   * @param transactionIDGenerator
    * @return true if the transaction was folded
    */
   public FoldedInfo addTransaction(ClientTransaction txn, SequenceGenerator sequenceGenerator,

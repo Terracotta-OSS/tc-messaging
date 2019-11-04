@@ -43,8 +43,9 @@ public class TCObjectOutputStream implements ObjectOutput, TCDataOutput {
   /**
    * This method is the reason I am writing this class. This implementation only can handle Literal Objects and is
    * designed to be used where writeObject() is called only for literal objects. Example : Sleepycat Serialization.
-   * 
-   * @see LiteralValues, DNAEncoding
+   *
+   * @see com.tc.object.LiteralValues
+   * @see com.tc.object.dna.api.DNAEncoding
    */
   @Override
   public void writeObject(Object obj) {
@@ -58,8 +59,7 @@ public class TCObjectOutputStream implements ObjectOutput, TCDataOutput {
   /**
    * This writes a 4 byte length and then the UTF String itself. If the length is negative, then it is a null string.
    * 
-   * @throws IOException
-   * @see writeUTF();
+   * @see #writeUTF(String)
    */
   @Override
   public void writeString(String string) {

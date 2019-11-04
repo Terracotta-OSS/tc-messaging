@@ -20,15 +20,18 @@ public interface SearchQueryRequestMessage extends SearchRequestMessage {
    * Initialize message.
    * 
    * @param searchRequestID
-   * @param groupFrom
    * @param cacheName
    * @param queryStack
    * @param keys
    * @param values
    * @param attributeSet
-   * @param sortAttributeMap
+   * @param groupByAttrs
+   * @param sortAttributesMap
    * @param aggregators
    * @param maxResults
+   * @param batchSize
+   * @param prefetchFirstBatch
+   * @param resultPrefetchLimit
    */
   public void initializeSearchRequestMessage(final SearchRequestID searchRequestID,
                                              final String cacheName, final List queryStack, final boolean keys,

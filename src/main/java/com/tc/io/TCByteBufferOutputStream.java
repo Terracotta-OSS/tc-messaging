@@ -458,8 +458,6 @@ public final class TCByteBufferOutputStream extends OutputStream implements TCBy
 
     /**
      * Copy (by invoking write() on the destination stream) the given length of bytes starting at this mark
-     * 
-     * @throws IOException
      */
     public void copyTo(TCByteBufferOutput dest, int length) {
       copyTo(dest, 0, length);
@@ -469,7 +467,7 @@ public final class TCByteBufferOutputStream extends OutputStream implements TCBy
      * Copy (by invoking write() on the destination stream) the given length of bytes starting from an offset to this
      * mark
      * 
-     * @throws IOException
+     * @throws IllegalArgumentException
      */
     public void copyTo(TCByteBufferOutput dest, int offset, int length) {
       if (length < 0) { throw new IllegalArgumentException("length: " + length); }

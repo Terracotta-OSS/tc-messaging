@@ -42,7 +42,6 @@ public final class SetOnceFlag implements Serializable {
   /**
    * Attempt to set the flag
    * 
-   * @return true if the flag was set, false otherwise
    * @throws IllegalArgumentException if the value has already been set by a different thread
    */
   public void set() {
@@ -56,7 +55,7 @@ public final class SetOnceFlag implements Serializable {
   }
 
   /**
-   * Attempt to atomically set the flag. This differs from <code>set()</set> in that
+   * Attempt to atomically set the flag. This differs from <code>set()</code> in that
    * it doesn't throw an exception if the value has already been set. This method
    * is useful for flags that might be set more than once, but should act as a guard
    * against path(s) that should only ever run once.

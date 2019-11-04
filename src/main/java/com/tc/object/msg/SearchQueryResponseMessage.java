@@ -16,7 +16,7 @@ import java.util.List;
 public interface SearchQueryResponseMessage extends TCMessage, SearchResponseMessage {
 
   /**
-   * @return List<NVPair> aggregator results.
+   * @return List&lt;NVPair&gt; aggregator results.
    */
   public List<Aggregator> getAggregators();
 
