@@ -25,7 +25,7 @@ public class ObjectID extends AbstractIdentifier implements Serializable {
   /**
    * Create an ObjectID with the specified ID
    * 
-   * @param id The id value, >= 0
+   * @param id The id value, &gt;= 0
    */
   public ObjectID(long id) {
     super(id);

@@ -19,7 +19,7 @@ public interface DNAWriter {
   /**
    * Add logical action to the writer
    * 
-   * @param Method identifier, defined in {@link com.tc.object.SerializationUtil}
+   * @param method identifier
    * @param parameters Parameter values
    */
   void addLogicalAction(LogicalOperation method, Object[] parameters);
@@ -27,7 +27,7 @@ public interface DNAWriter {
   /**
    * Add logical action to the writer
    * 
-   * @param Method identifier, defined in {@link com.tc.object.SerializationUtil}
+   * @param method identifier
    * @param parameters Parameter values
    */
   void addLogicalAction(LogicalOperation method, Object[] parameters, LogicalChangeID logicalChangeID);

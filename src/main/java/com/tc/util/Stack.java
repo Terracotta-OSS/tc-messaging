@@ -25,7 +25,7 @@ public class Stack<T> {
   }
 
   /**
-   * Pushes an item onto the top of this stack. This has exactly the same effect as: <blockquote>
+   * Pushes an item onto the top of this stack.
    * 
    * @param item the item to be pushed onto this stack.
    * @return the <code>item</code> argument.

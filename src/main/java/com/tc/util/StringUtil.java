@@ -20,7 +20,7 @@ public class StringUtil {
   /** The empty string */
   public static final String EMPTY          = "";
 
-  /** A string representing a null value: "<null>" */
+  /** A string representing a null value: "&lt;null&gt;" */
   public static final String NULL_STRING    = "<null>";
 
   public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -49,9 +49,9 @@ public class StringUtil {
    * Indent lines using tabs by inserting them into source after line breaks and returning a new String.
    * 
    * @param source Source string, may NOT be null
-   * @param indentLevel Number of tabs to insert, must be >= 0
+   * @param indentLevel Number of tabs to insert, must be &gt;= 0
    * @return Original buffer, updated
-   * @throws IllegalArgumentException If indentLevel < 0
+   * @throws IllegalArgumentException If indentLevel &lt; 0
    * @throws NullPointerException If source is null
    */
   public static String indentLines(String source, int indentLevel) {
@@ -62,9 +62,9 @@ public class StringUtil {
    * Indent lines using tabs by inserting them into source and returning source.
    * 
    * @param source Source buffer, may be null
-   * @param indentLevel Number of tabs to insert, must be >= 0
+   * @param indentLevel Number of tabs to insert, must be &gt;= 0
    * @return Original buffer, updated
-   * @throws IllegalArgumentException If indentLevel < 0
+   * @throws IllegalArgumentException If indentLevel &lt; 0
    */
   public static StringBuffer indentLines(StringBuffer source, int indentLevel) {
     return indentLines(source, indentLevel, '\t');
@@ -74,10 +74,10 @@ public class StringUtil {
    * Indent lines in the StringBuffer (line breaks found at \n) with indentChar repeated indentLevel times.
    * 
    * @param source Source buffer, may be null
-   * @param indentLevel Number of chars to indent, must be >= 0
+   * @param indentLevel Number of chars to indent, must be &gt;= 0
    * @param indentChar Indent character (usually ' ' or '\t')
    * @return Original buffer, updated
-   * @throws IllegalArgumentException If indentLevel < 0
+   * @throws IllegalArgumentException If indentLevel &lt; 0
    */
   public static StringBuffer indentLines(StringBuffer source, int indentLevel, char indentChar) {
     if ((source == null) || (indentLevel == 0)) { return source; }
@@ -92,9 +92,6 @@ public class StringUtil {
       Arrays.fill(chars, indentChar);
       indentStr = new String(chars);
     } else {
-      // errr....the call below is jdk1.4 specific
-      // indentStr = Character.toString(indentChar);
-
       indentStr = new String(new char[] { indentChar });
     }
 
@@ -117,7 +114,7 @@ public class StringUtil {
    * 
    * @param source Source buffer, must be non-null
    * @param search Search string, must be non-null
-   * @param start Start index, should be 0<=start<source.length(), will return -1 if out of range
+   * @param start Start index, should be 0&lt;=start&lt;source.length(), will return -1 if out of range
    * @return Index of found string or -1 if not found
    * @throws NullPointerException If source or search is null
    */
@@ -166,10 +163,10 @@ public class StringUtil {
   }
 
   /**
-   * Format value to string using radix, then prepend with 0's out to paddedWidth. If the formatted value is >
+   * Format value to string using radix, then prepend with 0's out to paddedWidth. If the formatted value is &gt;
    * paddedWidth, then the value is returned.
    * 
-   * @param value Long value, must be >= 0
+   * @param value Long value, must be &gt;= 0
    * @param radix The radix to use when representing the value
    * @param paddedWidth The width to pad to by prepending 0
    * @return Padded formatted string value for the long value, never null

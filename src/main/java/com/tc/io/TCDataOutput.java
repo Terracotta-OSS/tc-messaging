@@ -112,6 +112,6 @@ public interface TCDataOutput extends DataOutput {
    * 
    * @param value Value
    */
-  public void writeString(String string);
+  public void writeString(String value);
 
 }

@@ -62,7 +62,7 @@ public interface SearchRequestMessage extends TCMessage {
   /**
    * Return set of attributes ask for.
    * 
-   * @return Set<String>
+   * @return Set&lt;String&gt;
    */
   public Set<String> getAttributes();
 
@@ -74,7 +74,7 @@ public interface SearchRequestMessage extends TCMessage {
   /**
    * Return a map of attribute aggregators
    * 
-   * @return List<NVPair>
+   * @return List&lt;NVPair&gt;
    */
   public List<NVPair> getAggregators();
 

@@ -395,7 +395,7 @@ public enum LiteralValues {
    * Calculate a stable hash code for the object. Many literals (like Integer) have stable
    * hash codes already, but some (like Class) do not.
    * 
-   * @param value must refer to an object for which {@link #isLiteralInstance()} returns true.
+   * @param value must refer to an object for which {@link #isLiteralInstance(Object)} returns true.
    *        This implies that value must be non-null.
    */
   public int calculateDsoHashCodeForLiteral(Object value) {
@@ -495,7 +495,7 @@ public enum LiteralValues {
 
   /**
    * Determine whether the instance is a literal
-   * <p />
+   * <br>
    * Returns false if the parameter is null
    * 
    * @param obj Instance object, may be null
@@ -516,7 +516,7 @@ public enum LiteralValues {
    * Calculate a stable hash code for the object. Many literals (like Integer) have stable
    * hash codes already, but some (like Class) do not.
    * 
-   * @param value must refer to an object for which {@link #isLiteralInstance()} returns true.
+   * @param value must refer to an object for which {@link #isLiteralInstance(Object)} returns true.
    *        This implies that value must be non-null.
    */
   public static int calculateDsoHashCode(Object value) {

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * helper class to hide the serialization and de-serialization of Map<GroupID, StripeID> implementations from external
+ * helper class to hide the serialization and de-serialization of Map&lt;GroupID, StripeID&gt; implementations from external
  * world.
  */
 public class GroupToStripeMapSerializer implements TCSerializable {

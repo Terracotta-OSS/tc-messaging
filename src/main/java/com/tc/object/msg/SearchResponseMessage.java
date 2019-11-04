@@ -29,10 +29,11 @@ public interface SearchResponseMessage extends TCMessage {
    * @param searchRequestID
    * @param groupIDFrom
    * @param anyCriteriaMatched
-   * @param aggregatorResults
-   * @param aggregatorResults
+   * @param results
+   * @param aggregators
    * @param anyCriteriaMatched
    * @param isGroupBy
+   * @param totalCount
    */
   public void initSearchResponseMessage(SearchRequestID searchRequestID, GroupID groupIDFrom,
                                         List<IndexQueryResult> results, List<Aggregator> aggregators,
@@ -48,7 +49,7 @@ public interface SearchResponseMessage extends TCMessage {
   public void initSearchResponseMessage(SearchRequestID searchRequestID, GroupID groupIDFrom, String errorMessage);
 
   /**
-   * @return List<IndexQueryResult> results.
+   * @return List&lt;IndexQueryResult&gt; results.
    */
   public List<IndexQueryResult> getResults();
 
