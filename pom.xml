@@ -9,7 +9,7 @@
   <parent>
     <groupId>org.terracotta.forge</groupId>
     <artifactId>forge-parent</artifactId>
-    <version>4.10</version>
+    <version>4.12</version>
   </parent>
   
   <groupId>org.terracotta</groupId>
@@ -25,37 +25,28 @@
     <dependency>
       <groupId>com.terracottatech</groupId>
       <artifactId>search</artifactId>
-      <version>1.5.9</version>
+      <version>1.5.10</version>
     </dependency>
   </dependencies>
 
   <profiles>
     <profile>
-      <id>sag-deps</id>
+      <id>testVM</id>
       <activation>
         <property>
-          <name>sag-deps</name>
-          <value>true</value>
+          <name>testVM</name>
         </property>
       </activation>
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.terracotta</groupId>
-              <artifactId>maven-forge-plugin</artifactId>
-              <dependencies>
-                <dependency>
-                  <groupId>com.softwareag.ibit.tools.util</groupId>
-                  <artifactId>finder</artifactId>
-                  <!-- Before bumping version - verify it still accepts exclusion files -->
-                  <version>3.0</version>
-                  <scope>compile</scope>
-                </dependency>
-              </dependencies>
-            </plugin>
-          </plugins>
-        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <jvm>${testVM}</jvm>
+            </configuration>
+          </plugin>
+        </plugins>
       </build>
     </profile>
   </profiles>
