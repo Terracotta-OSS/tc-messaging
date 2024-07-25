@@ -1,3 +1,7 @@
+/*
+ * Copyright Terracotta, Inc.
+ * Copyright Super iPaaS Integration LLC, an IBM Company 2024
+ */
 package com.tc.l2.msg;
 
 import com.tc.io.TCByteBufferInput;
