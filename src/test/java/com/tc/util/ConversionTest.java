@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
  * JUnit TestCase to exercise the Conversion class.
  * <p>
  * TODO: change tests to use min and max values where appropriate.
- * 
+ *
  * @see Conversion
  * @author orion
  */
@@ -294,16 +294,16 @@ public class ConversionTest {
 
     char dfs = new DecimalFormatSymbols().getDecimalSeparator();
     try {
-      Assert.assertEquals("1k", Conversion.memoryBytesAsSize(MemorySizeUnits.KILO.asBytes()));
-      Assert.assertEquals("1m", Conversion.memoryBytesAsSize(MemorySizeUnits.MEGA.asBytes()));
-      Assert.assertEquals("1g", Conversion.memoryBytesAsSize(MemorySizeUnits.GIGA.asBytes()));
+      Assert.assertEquals("1" + dfs + "00k", Conversion.memoryBytesAsSize(MemorySizeUnits.KILO.asBytes()));
+      Assert.assertEquals("1" + dfs + "00m", Conversion.memoryBytesAsSize(MemorySizeUnits.MEGA.asBytes()));
+      Assert.assertEquals("1" + dfs + "00g", Conversion.memoryBytesAsSize(MemorySizeUnits.GIGA.asBytes()));
 
-      Assert.assertEquals("4k", Conversion.memoryBytesAsSize(MemorySizeUnits.KILO.asBytes() * 4));
-      Assert.assertEquals("8m", Conversion.memoryBytesAsSize(MemorySizeUnits.MEGA.asBytes() * 8));
-      Assert.assertEquals("10g", Conversion.memoryBytesAsSize(MemorySizeUnits.GIGA.asBytes() * 10));
+      Assert.assertEquals("4" + dfs + "00k", Conversion.memoryBytesAsSize(MemorySizeUnits.KILO.asBytes() * 4));
+      Assert.assertEquals("8" + dfs + "00m", Conversion.memoryBytesAsSize(MemorySizeUnits.MEGA.asBytes() * 8));
+      Assert.assertEquals("10" + dfs + "00g", Conversion.memoryBytesAsSize(MemorySizeUnits.GIGA.asBytes() * 10));
 
       Assert.assertEquals("924b", Conversion.memoryBytesAsSize(MemorySizeUnits.KILO.asBytes() - 100));
-      Assert.assertEquals("1024m", Conversion.memoryBytesAsSize(MemorySizeUnits.GIGA.asBytes() - 100));
+      Assert.assertEquals("1024" + dfs + "00m", Conversion.memoryBytesAsSize(MemorySizeUnits.GIGA.asBytes() - 100));
       Assert.assertEquals("901b", Conversion.memoryBytesAsSize(MemorySizeUnits.KILO.asBytes() - 123));
       Assert.assertEquals("1021" + dfs + "71k", Conversion.memoryBytesAsSize(MemorySizeUnits.MEGA.asBytes() - 2344));
       Assert.assertEquals("933" + dfs + "84m",

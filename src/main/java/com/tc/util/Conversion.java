@@ -12,15 +12,13 @@ import com.tc.exception.TCException;
 import com.tc.exception.TCRuntimeException;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Data conversion algorithms and whatnot can be found in java.io.DataInput and java.io.DataOutput. Contains methods for
  * converting from one kind of thing to another.
- * 
+ *
  * @author orion
  */
 public class Conversion {
@@ -30,11 +28,7 @@ public class Conversion {
 
   private static final Pattern MEMORY_SIZE_PATTERN  = Pattern.compile("[0-9]*([.][0-9]+)? *([bkmg])?");
   private static final Pattern SIZE_MODIFIER_PATTERN = Pattern.compile("[bkmg]");
-  private final static DecimalFormat twoDForm = new DecimalFormat();
   private static final byte[]        EMPTY_BYTE_ARRAY      = new byte[] {};
-  static {
-    twoDForm.applyLocalizedPattern("#" + new DecimalFormatSymbols().getDecimalSeparator() + "##");
-  }
 
   private static int makeInt(byte b3, byte b2, byte b1, byte b0) {
     return ((((b3 & 0xff) << 24) | ((b2 & 0xff) << 16) | ((b1 & 0xff) << 8) | ((b0 & 0xff) << 0)));
@@ -109,7 +103,7 @@ public class Conversion {
 
   /**
    * Helper method to write a 4 byte unsigned integer value into a given byte array at a given offset
-   * 
+   *
    * @param l the unsigned int value to write
    * @param dest the byte array to write the uint into
    * @param index starting offset into the destination byte array
@@ -127,7 +121,7 @@ public class Conversion {
 
   /**
    * Helper method to write a 4 byte java (signed) integer value into a given byte array at a given offset
-   * 
+   *
    * @param i the signed int value to write
    * @param dest the byte array to write the uint into
    * @param index starting offset into the destination byte array
@@ -313,7 +307,7 @@ public class Conversion {
 
   /**
    * Converts a single byte to a hex string representation, can be decoded with Byte.parseByte().
-   * 
+   *
    * @param b the byte to encode
    * @return a
    */
@@ -420,13 +414,13 @@ public class Conversion {
       return bytes + "b";
     } else if (bytes < MEGA.asBytes()) {
       double rv = (bytes / (KILO.asBytes() * 1.0));
-      return twoDForm.format(rv) + 'k';
+      return String.format("%.2fk", rv);
     } else if (bytes < GIGA.asBytes()) {
       double rv = (bytes / (MEGA.asBytes() * 1.0));
-      return twoDForm.format(rv) + 'm';
+      return String.format("%.2fm", rv);
     } else {
       double rv = (bytes / (GIGA.asBytes() * 1.0));
-      return twoDForm.format(rv) + 'g';
+      return String.format("%.2fg", rv);
     }
   }
 
