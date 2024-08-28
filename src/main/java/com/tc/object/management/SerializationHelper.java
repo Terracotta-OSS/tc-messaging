@@ -47,9 +47,8 @@ class SerializationHelper {
           if (cname.startsWith("[")) {
             // An array
             Class<?> component;
-            int dcount;
-            for (dcount = 1; cname.charAt(dcount) == '['; dcount++) ;
-            if (cname.charAt(dcount) == 'L') {
+            int dcount = cname.lastIndexOf('[') + 1;
+            if (dcount < cname.length() && cname.charAt(dcount) == 'L') {
               component = lookupClass(cname.substring(dcount + 1, cname.length() - 1));
             } else {
               // primitive array
