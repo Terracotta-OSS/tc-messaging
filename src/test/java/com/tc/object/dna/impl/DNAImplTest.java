@@ -1,6 +1,6 @@
 /*
  * Copyright 2003-2008 Terracotta, Inc.
- * Copyright Super iPaaS Integration LLC, an IBM Company 2024
+ * Copyright IBM Corp. 2024, 2025
  */
 package com.tc.object.dna.impl;
 
