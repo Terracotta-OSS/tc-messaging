@@ -9,6 +9,7 @@ import com.tc.io.TCByteBufferOutput;
 import com.tc.io.TCSerializable;
 
 import java.io.IOException;
+import java.io.ObjectInputFilter;
 
 /**
  *
@@ -41,6 +42,13 @@ public class ResponseHolder implements TCSerializable {
 
   public Object getResponse(ClassLoader classLoader) throws ClassNotFoundException {
     return SerializationHelper.deserialize(serializedResponse, classLoader);
+  }
+
+  /**
+   * Deserializes the response using the supplied stream-specific filter.
+   */
+  public Object getResponse(ClassLoader classLoader, ObjectInputFilter filter) throws ClassNotFoundException {
+    return SerializationHelper.deserialize(serializedResponse, classLoader, filter);
   }
 
   public void setResponse(Object response) {
