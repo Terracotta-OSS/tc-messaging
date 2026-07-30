@@ -7,7 +7,10 @@ package com.tc.object.management;
 
 import com.tc.util.Assert;
 import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputFilter;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -76,5 +79,72 @@ public class SerializationHelperTest {
       Object check = SerializationHelper.deserialize(raw, getClass().getClassLoader());
       Assert.assertTrue(check, check.getClass().isArray());
       Assert.assertTrue(check, check.getClass().getComponentType().isArray());
+   }
+
+   @Test
+   public void testDeserializationUsesStreamSpecificFilter() throws Exception {
+      byte[] raw;
+      try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oo = new ObjectOutputStream(out)) {
+        oo.writeObject(new FilterTestPayload());
+        oo.flush();
+        raw = out.toByteArray();
+      }
+
+      AtomicBoolean filterInvoked = new AtomicBoolean(false);
+      ObjectInputFilter filter = filterInfo -> {
+        if (filterInfo.serialClass() == FilterTestPayload.class) {
+          filterInvoked.set(true);
+          return ObjectInputFilter.Status.REJECTED;
+        }
+        return ObjectInputFilter.Status.UNDECIDED;
+      };
+
+      try {
+        SerializationHelper.deserialize(raw, getClass().getClassLoader(), filter);
+        Assert.fail("Expected filter to reject payload");
+      } catch (TCManagementSerializationException expected) {
+        Assert.assertTrue(filterInvoked.get());
+      }
+   }
+
+   @Test
+   public void testResponseHolderExceptionUsesStreamSpecificFilter() throws Exception {
+      ResponseHolder responseHolder = new ResponseHolder(new FilterTestException());
+      AtomicBoolean filterInvoked = new AtomicBoolean(false);
+      ObjectInputFilter filter = filterInfo -> {
+        if (filterInfo.serialClass() == FilterTestException.class) {
+          filterInvoked.set(true);
+          return ObjectInputFilter.Status.REJECTED;
+        }
+        return ObjectInputFilter.Status.UNDECIDED;
+      };
+
+      try {
+        responseHolder.getException(getClass().getClassLoader(), filter);
+        Assert.fail("Expected filter to reject exception");
+      } catch (TCManagementSerializationException expected) {
+        Assert.assertTrue(filterInvoked.get());
+      }
+   }
+
+   @Test(expected = NullPointerException.class)
+   public void testResponseHolderFilteredExceptionRequiresAFilter() throws Exception {
+      ResponseHolder responseHolder = new ResponseHolder(new FilterTestException());
+      responseHolder.getException(getClass().getClassLoader(), null);
+   }
+
+   @Test(expected = NullPointerException.class)
+   public void testResponseHolderFilteredResponseRequiresAFilter() throws Exception {
+      ResponseHolder responseHolder = new ResponseHolder(new FilterTestException());
+      responseHolder.getResponse(getClass().getClassLoader(), null);
+   }
+
+   private static class FilterTestPayload implements Serializable {
+     private static final long serialVersionUID = 1L;
+   }
+
+   private static class FilterTestException extends Exception {
+      private static final long serialVersionUID = 1L;
    }
 }

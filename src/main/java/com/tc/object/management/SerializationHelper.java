@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectInputFilter;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Array;
@@ -34,6 +35,10 @@ class SerializationHelper {
   }
 
   static Object deserialize(byte[] bytes, final ClassLoader classLoader) throws ClassNotFoundException {
+    return deserialize(bytes, classLoader, null);
+  }
+
+  static Object deserialize(byte[] bytes, final ClassLoader classLoader, ObjectInputFilter filter) throws ClassNotFoundException {
     if (bytes.length == 0) {
       return null;
     }
@@ -68,6 +73,9 @@ class SerializationHelper {
           return classLoader.loadClass(s);
         }
       };
+      if (filter != null) {
+        ois.setObjectInputFilter(filter);
+      }
       return ois.readObject();
     } catch (IOException ioe) {
       throw new TCManagementSerializationException("Error deserializing object", ioe);
