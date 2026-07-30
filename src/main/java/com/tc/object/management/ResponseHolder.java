@@ -11,6 +11,8 @@ import com.tc.io.TCSerializable;
 import java.io.IOException;
 import java.io.ObjectInputFilter;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  *
  */
@@ -32,14 +34,28 @@ public class ResponseHolder implements TCSerializable {
     serializedException = new byte[0];
   }
 
+  /**
+   * @deprecated Use {@link #getException(ClassLoader, ObjectInputFilter)} when deserializing data from an untrusted
+   *             source.
+   */
+  @Deprecated
   public Exception getException(final ClassLoader classLoader) throws ClassNotFoundException {
     return (Exception)SerializationHelper.deserialize(serializedException, classLoader);
+  }
+
+  public Exception getException(ClassLoader classLoader, ObjectInputFilter filter) throws ClassNotFoundException {
+    return (Exception)SerializationHelper.deserialize(serializedException, classLoader, requireNonNull(filter));
   }
 
   public void setException(Exception exception) {
     this.serializedException = SerializationHelper.serialize(exception);
   }
 
+  /**
+   * @deprecated Use {@link #getResponse(ClassLoader, ObjectInputFilter)} when deserializing data from an untrusted
+   *             source.
+   */
+  @Deprecated
   public Object getResponse(ClassLoader classLoader) throws ClassNotFoundException {
     return SerializationHelper.deserialize(serializedResponse, classLoader);
   }
@@ -48,7 +64,7 @@ public class ResponseHolder implements TCSerializable {
    * Deserializes the response using the supplied stream-specific filter.
    */
   public Object getResponse(ClassLoader classLoader, ObjectInputFilter filter) throws ClassNotFoundException {
-    return SerializationHelper.deserialize(serializedResponse, classLoader, filter);
+    return SerializationHelper.deserialize(serializedResponse, classLoader, requireNonNull(filter));
   }
 
   public void setResponse(Object response) {
