@@ -27,7 +27,7 @@ resources:
 jobs:
   - template: build-templates/maven-common.yml@templates
     parameters:
-      jobName: Linux_Java_11
-      jdkVersion: 11
+      jobName: Linux_Java_17
+      jdkVersion: 17
       options: -B -Djava.test.vendor=zulu -Ptc-publish,fullmode -Dsag-deps=true
       mavenGoals: 'clean verify'
