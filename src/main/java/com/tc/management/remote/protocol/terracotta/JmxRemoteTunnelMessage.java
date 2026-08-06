@@ -10,20 +10,35 @@ import com.tc.io.TCByteBufferInput;
 import com.tc.io.TCByteBufferOutput;
 import com.tc.io.TCByteBufferOutputStream;
 import com.tc.io.TCSerializable;
+import com.tc.logging.TCLogger;
+import com.tc.logging.TCLoggingService;
 import com.tc.net.protocol.tcm.MessageChannel;
 import com.tc.net.protocol.tcm.MessageMonitor;
 import com.tc.net.protocol.tcm.TCMessageHeader;
 import com.tc.net.protocol.tcm.TCMessageType;
 import com.tc.object.msg.DSOMessageBase;
 import com.tc.object.session.SessionID;
+import com.tc.util.ServiceUtil;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputFilter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.util.stream.Collectors;
+
+import static java.io.ObjectInputFilter.Config.createFilter;
+import static java.io.ObjectInputFilter.rejectUndecidedClass;
 
 public class JmxRemoteTunnelMessage extends DSOMessageBase implements TCSerializable {
+
+  private static final TCLogger LOGGER = ServiceUtil.loadService(TCLoggingService.class)
+          .getLogger(JmxRemoteTunnelMessage.class);
 
   private static final byte TUNNEL_MESSAGE = 0;
   private static final byte FLAG           = 1;
@@ -31,6 +46,8 @@ public class JmxRemoteTunnelMessage extends DSOMessageBase implements TCSerializ
   private static final byte SYN_FLAG       = 1 << 0;
   private static final byte DATA_FLAG      = 1 << 1;
   private static final byte FIN_FLAG       = 1 << 2;
+
+  private static final ObjectInputFilter OBJECT_INPUT_FILTER = rejectUndecidedClass(allowFilter());
 
   private Object            tunneledMessage;
   private byte              flag;
@@ -93,6 +110,7 @@ public class JmxRemoteTunnelMessage extends DSOMessageBase implements TCSerializ
       serialInput.read(serializedObject);
       final ByteArrayInputStream bis = new ByteArrayInputStream(serializedObject);
       final ObjectInputStream ois = new ObjectInputStream(bis);
+      ois.setObjectInputFilter(OBJECT_INPUT_FILTER);
       return ois.readObject();
     } catch (ClassNotFoundException cnfe) {
       throw new TCRuntimeException(cnfe);
@@ -127,4 +145,20 @@ public class JmxRemoteTunnelMessage extends DSOMessageBase implements TCSerializ
     this.flag = flag;
   }
 
+  private static ObjectInputFilter allowFilter() {
+    URL filterResource = JmxRemoteTunnelMessage.class.getResource(JmxRemoteTunnelMessage.class.getSimpleName() + ".allowlist");
+    if (filterResource == null) {
+      LOGGER.warn("JmxRemoteTunnelMessage allow-list not found - all deserialization attempts will fail");
+      return filterInfo -> ObjectInputFilter.Status.REJECTED;
+    } else {
+      try (InputStream is = filterResource.openStream();
+           InputStreamReader isr = new InputStreamReader(is);
+           BufferedReader br = new BufferedReader(isr)) {
+        return createFilter(br.lines().filter(line -> !(line.startsWith("#") || line.isBlank()))
+                .collect(Collectors.joining(";")));
+      } catch (IOException e) {
+        throw new AssertionError(e);
+      }
+    }
+  }
 }
